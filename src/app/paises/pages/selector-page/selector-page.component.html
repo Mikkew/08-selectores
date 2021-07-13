@@ -1,0 +1,83 @@
+<h1 class="mt-5">Selectores Anidados</h1>
+<hr>
+
+<form [formGroup]="miFormulario"
+      (ngSubmit)="guardar()">
+
+  <!-- Region -->
+  <div class="row">
+    <div class="col">
+      <label class="col-sm-3 col-form-label">Continente:</label>
+      <select class="form-control" 
+              formControlName="region">
+        <option value=""> -- Seleccione Continente -- </option>
+        <option *ngFor="let region of regiones" 
+                [value]="region | lowercase">{{ region }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Pais -->
+  <div class="row" *ngIf="paises.length !== 0">
+    <div class="col">
+      <label class="col-sm-3 col-form-label">Pais:</label>
+      <select class="form-control" 
+              formControlName="pais">
+        <option value=""> -- Seleccione pais -- </option>
+        <option *ngFor="let pais of paises" 
+                [value]="pais.alpha3Code | lowercase">{{ pais.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Frontera -->
+  <div class="row" *ngIf="fronteras.length !== 0">
+    <div class="col">
+      <label class="col-sm-3 col-form-label">Fronteras:</label>
+      <select class="form-control" 
+              formControlName="frontera">
+        <option value=""> -- Seleccione frontera -- </option>
+        <option *ngFor="let frontera of fronteras" 
+                [value]="frontera.alpha3Code | lowercase">{{ frontera.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-1" *ngIf="cargando">
+    <div class="col">
+      <div class="alert alert-danger">
+        Cargando...
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-sm-12">
+      <button type="submit" class="btn btn-danger float-end">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+
+
+<div class="row mt-5">
+  <div class="col">
+    <h2>Formulario</h2>
+
+    <span>Valid</span>
+    <pre>{{ miFormulario.valid }}</pre>
+
+    <!-- <span>Pristine</span>
+    <pre>{{ miFormulario.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ miFormulario.touched}}</pre> -->
+
+    <span>Persona</span>
+    <pre>{{ miFormulario.value | json }}</pre>
+
+  </div>
+</div>
